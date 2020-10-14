@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.reflect.manifests">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/reflect_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/reflect_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="reflect.todolistactivity.AddViewMoodEntryItemActivity"></activity>
+        <!-- <activity android:name=".addedittodoitem.AddEditToDoItemActivity"></activity> -->
+        <!-- <provider -->
+        <!-- android:name="edu.csce4623.ahnelson.reflect.data.MoodEntryProvider" -->
+        <!-- android:authorities="reflect.data" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" /> -->
+        <activity android:name="reflect.todolistactivity.MoodEntryListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
