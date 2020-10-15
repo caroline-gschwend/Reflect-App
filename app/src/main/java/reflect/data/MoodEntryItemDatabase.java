@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 //Don't touch unless you know what you are doing.
 @Database(entities = {MoodEntryItem.class}, version = 1, exportSchema = false)
 public abstract class MoodEntryItemDatabase extends RoomDatabase {
-    public static final String DATABASE_NAME = "todo_db";
+    public static final String DATABASE_NAME = "moodentry_db";
     private static MoodEntryItemDatabase INSTANCE;
 
     public static MoodEntryItemDatabase getInstance(Context context) {

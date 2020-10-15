@@ -38,7 +38,7 @@ public interface MoodEntryListContract {
         /**
          * loadToDoItems - Loads all ToDoItems from the ToDoItemsRepository
          */
-        void loadToDoItems();
+        void loadMoodEntryItems();
 
         /**
          * start -- All procedures that need to be started

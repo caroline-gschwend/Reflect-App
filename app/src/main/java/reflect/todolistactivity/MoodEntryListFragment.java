@@ -1,5 +1,6 @@
 package reflect.todolistactivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.reflect.manifests.R;
 
@@ -127,7 +127,10 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
      */
     @Override
     public void showAddEditToDoItem(MoodEntryItem item, int requestCode) {
-        Toast.makeText(getContext(), "To Be Implemented!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), AddViewMoodEntryItemActivity.class);
+        intent.putExtra("RequestCode", requestCode );
+        intent.putExtra("MoodEntryItem", item);
+        startActivityForResult(intent,requestCode);
     }
 
     /**
@@ -141,8 +144,10 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Check to make sure data object has a toDoItem
-        if (data.hasExtra("ToDoItem")) {
-            mPresenter.result(requestCode, resultCode, (MoodEntryItem) data.getSerializableExtra("ToDoItem"));
+        if(resultCode == Activity.RESULT_OK) {
+            if (data.hasExtra("MoodEntryItem")) {
+                mPresenter.result(requestCode, resultCode, (MoodEntryItem) data.getSerializableExtra("MoodEntryItem"));
+            }
         }
     }
 
@@ -151,7 +156,7 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
      */
     MoodEntryItemsListener mMoodEntryItemsListener = new MoodEntryItemsListener() {
         @Override
-        public void onToDoItemClick(MoodEntryItem clickedMoodEntryItem) {
+        public void onMoodEntryItemClick(MoodEntryItem clickedMoodEntryItem) {
             Log.d("FRAGMENT", "Open ToDoItem Details");
             //Grab item from the ListView click and pass to presenter
             mPresenter.showExistingMoodEntryItem(clickedMoodEntryItem);
@@ -228,17 +233,17 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
             //used in the OnItemClick callback
             final MoodEntryItem moodEntryItem = getItem(i);
 
-            TextView titleTV = (TextView) rowView.findViewById(R.id.etItemTitle);
-            titleTV.setText(moodEntryItem.getTitle());
+            TextView titleTV = (TextView) rowView.findViewById(R.id.tvItemColor);
+            titleTV.setBackgroundResource(moodEntryItem.getColor());
 
-            TextView contentTV = (TextView) rowView.findViewById(R.id.etItemContent);
+            TextView contentTV = (TextView) rowView.findViewById(R.id.etMoodDescription);
             contentTV.setText(moodEntryItem.getContent());
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Set onItemClick listener
-                    mItemListener.onToDoItemClick(moodEntryItem);
+                    mItemListener.onMoodEntryItemClick(moodEntryItem);
                 }
             });
             return rowView;
@@ -246,6 +251,6 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
     }
 
     public interface MoodEntryItemsListener {
-        void onToDoItemClick(MoodEntryItem clickedMoodEntryItem);
+        void onMoodEntryItemClick(MoodEntryItem clickedMoodEntryItem);
     }
 }

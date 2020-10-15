@@ -5,4 +5,128 @@
     <string name="it_s_time_to_reflect">It\'s time to reflect.</string>
     <string name="welcome">Welcome</string>
     <string name="settings_wheel">settings wheel</string>
+    <string-array name="spinnerChoices">
+        <item>Enraged</item>
+        <item>Panicked</item>
+        <item>Furious</item>
+        <item>Frightened</item>
+        <item>Anxious</item>
+        <item>Troubled</item>
+        <item>Enraged</item>
+        <item>Angry</item>
+        <item>Worried</item>
+        <item>Jittery</item>
+        <item>Tense</item>
+        <item>Nervous</item>
+        <item>Irritated</item>
+        <item>Stunned</item>
+        <item>Annoyed</item>
+        <item>Disgusted</item>
+        <item>Pessimistic</item>
+        <item>Despair</item>
+        <item>Miserable</item>
+        <item>Disappointed</item>
+        <item>Lonely</item>
+        <item>Sad</item>
+        <item>Exhausted</item>
+        <item>Bored</item>
+        <item>Tired</item>
+        <item>Surprised</item>
+        <item>Energized</item>
+        <item>Pleased</item>
+        <item>Cheerful</item>
+        <item>Joyful</item>
+        <item>Motivated</item>
+        <item>Focused</item>
+        <item>Hopeful</item>
+        <item>Optimistic</item>
+        <item>Inspired</item>
+        <item>Proud</item>
+        <item>Elated</item>
+        <item>Excited</item>
+        <item>Thrilled</item>
+        <item>Calm</item>
+        <item>Relaxed</item>
+        <item>Sleepy</item>
+        <item>Chill</item>
+        <item>Thoughtful</item>
+        <item>Satisfied</item>
+        <item>Restful</item>
+        <item>Loving</item>
+        <item>Grateful</item>
+        <item>Blessed</item>
+        <item>Touched</item>
+        <item>Balanced</item>
+        <item>Carefree</item>
+        <item>Serene</item>
+    </string-array>
+    <string-array name="darkPinkMoods">
+        <item>Enraged</item>
+        <item>Panicked</item>
+        <item>Furious</item>
+        <item>Frightened</item>
+        <item>Anxious</item>
+        <item>Troubled</item>
+        <item>Enraged</item>
+        <item>Angry</item>
+    </string-array>
+    <string-array name="lightPinkMoods">
+        <item>Worried</item>
+        <item>Jittery</item>
+        <item>Tense</item>
+        <item>Nervous</item>
+        <item>Irritated</item>
+        <item>Stunned</item>
+        <item>Annoyed</item>
+    </string-array>
+    <string-array name="darkBlueMoods">
+        <item>Disgusted</item>
+        <item>Pessimistic</item>
+        <item>Despair</item>
+        <item>Miserable</item>
+        <item>Disappointed</item>
+    </string-array>
+    <string-array name="lightBlueMoods">
+        <item>Lonely</item>
+        <item>Sad</item>
+        <item>Exhausted</item>
+        <item>Bored</item>
+        <item>Tired</item>
+    </string-array>
+    <string-array name="lightYellowMoods">
+        <item>Surprised</item>
+        <item>Energized</item>
+        <item>Pleased</item>
+        <item>Cheerful</item>
+        <item>Joyful</item>
+        <item>Motivated</item>
+        <item>Focused</item>
+    </string-array>
+    <string-array name="darkYellowMoods">
+        <item>Hopeful</item>
+        <item>Optimistic</item>
+        <item>Inspired</item>
+        <item>Proud</item>
+        <item>Elated</item>
+        <item>Excited</item>
+        <item>Thrilled</item>
+    </string-array>
+    <string-array name="lightGreenMoods">
+        <item>Calm</item>
+        <item>Relaxed</item>
+        <item>Sleepy</item>
+        <item>Chill</item>
+        <item>Thoughtful</item>
+        <item>Satisfied</item>
+        <item>Restful</item>
+    </string-array>
+    <string-array name="darkGreenMoods">
+        <item>Loving</item>
+        <item>Grateful</item>
+        <item>Blessed</item>
+        <item>Touched</item>
+        <item>Balanced</item>
+        <item>Carefree</item>
+        <item>Serene</item>
+    </string-array>
 </resources>

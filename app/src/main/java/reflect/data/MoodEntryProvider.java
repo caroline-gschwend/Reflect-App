@@ -22,18 +22,18 @@ public class MoodEntryProvider extends ContentProvider {
     private MoodEntryItemDao moodEntryItemDao;
 
     public static final String AUTHORITY = "com.example.reflect.data";
-    public static final String TODOITEM_TABLE_NAME = "todoitems";
+    public static final String MOODENTRYITEM_TABLE_NAME = "moodentryitems";
 
-    public static final int ID_TODOITEM_DATA = 1;
-    public static final int ID_TODOITEM_DATA_ITEM = 2;
+    public static final int ID_MOODENTRYITEM_DATA = 1;
+    public static final int ID_MOODENTRYITEM_DATA_ITEM = 2;
 
     //URI matcher for switch statements on calls to the provider
     public static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     //Definition of two patterns (table or table + ID)
     static {
-        uriMatcher.addURI(AUTHORITY, TODOITEM_TABLE_NAME, ID_TODOITEM_DATA);
-        uriMatcher.addURI(AUTHORITY, TODOITEM_TABLE_NAME + "/*", ID_TODOITEM_DATA_ITEM);
+        uriMatcher.addURI(AUTHORITY, MOODENTRYITEM_TABLE_NAME, ID_MOODENTRYITEM_DATA);
+        uriMatcher.addURI(AUTHORITY, MOODENTRYITEM_TABLE_NAME + "/*", ID_MOODENTRYITEM_DATA_ITEM);
     }
 
     /**
@@ -66,7 +66,7 @@ public class MoodEntryProvider extends ContentProvider {
         Log.d(TAG, "query");
         Cursor cursor;
         switch (uriMatcher.match(uri)) {
-            case ID_TODOITEM_DATA:
+            case ID_MOODENTRYITEM_DATA:
                 cursor = moodEntryItemDao.findAll();
                 if (getContext() != null) {
                     cursor.setNotificationUri(getContext()
@@ -105,7 +105,7 @@ public class MoodEntryProvider extends ContentProvider {
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
         Log.d(TAG, "insert");
         switch (uriMatcher.match(uri)) {
-            case ID_TODOITEM_DATA:
+            case ID_MOODENTRYITEM_DATA:
                 if (getContext() != null) {
                     long id = moodEntryItemDao.insert(MoodEntryItem.fromContentValues(values));
                     if (id != 0) {
@@ -113,7 +113,7 @@ public class MoodEntryProvider extends ContentProvider {
                         return ContentUris.withAppendedId(uri, id);
                     }
                 }
-            case ID_TODOITEM_DATA_ITEM:
+            case ID_MOODENTRYITEM_DATA_ITEM:
                 throw new IllegalArgumentException("Invalid URI: Insert failed " + uri);
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -138,9 +138,9 @@ public class MoodEntryProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         Log.d(TAG, "delete");
         switch (uriMatcher.match(uri)) {
-            case ID_TODOITEM_DATA:
+            case ID_MOODENTRYITEM_DATA:
                 throw new IllegalArgumentException("Invalid uri: cannot delete");
-            case ID_TODOITEM_DATA_ITEM:
+            case ID_MOODENTRYITEM_DATA_ITEM:
                 if (getContext() != null) {
                     //Delete item in the DAO at a given ID
                     int count = moodEntryItemDao.delete(ContentUris.parseId(uri));
@@ -169,7 +169,7 @@ public class MoodEntryProvider extends ContentProvider {
         Log.d(TAG, "update");
         Log.d(TAG, uri.toString());
         switch (uriMatcher.match(uri)) {
-            case ID_TODOITEM_DATA:
+            case ID_MOODENTRYITEM_DATA:
                 if (getContext() != null) {
                     //Update DAO from given ToDoItem
                     int count = moodEntryItemDao.update(MoodEntryItem.fromContentValues(values));
@@ -179,7 +179,7 @@ public class MoodEntryProvider extends ContentProvider {
                     }
                 }
                 break;
-            case ID_TODOITEM_DATA_ITEM:
+            case ID_MOODENTRYITEM_DATA_ITEM:
                 throw new IllegalArgumentException("Invalid URI: cannot update");
             default:
                 throw new IllegalArgumentException("Unknwon URI: " + uri);

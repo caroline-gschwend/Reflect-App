@@ -67,12 +67,10 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
             @Override
             public void run() {
                 String[] projection = {
-                        MoodEntryItem.TODOITEM_ID,
-                        MoodEntryItem.TODOITEM_TITLE,
-                        MoodEntryItem.TODOITEM_CONTENT,
-                        MoodEntryItem.TODOITEM_DUEDATE,
-                        MoodEntryItem.TODOITEM_COMPLETED};
-                final Cursor c = mContext.getContentResolver().query(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.TODOITEM_TABLE_NAME), projection, null, null, null);
+                        MoodEntryItem.MOODENTRYITEM_ID,
+                        MoodEntryItem.MOODENTRYITEM_COLOR,
+                        MoodEntryItem.MOODENTRYITEM_CONTENT};
+                final Cursor c = mContext.getContentResolver().query(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME), projection, null, null, null);
                 final List<MoodEntryItem> moodEntryItems = new ArrayList<MoodEntryItem>(0);
                 mAppExecutors.mainThread().execute(new Runnable() {
                     @Override
@@ -82,11 +80,9 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                         } else {
                             while (c.moveToNext()) {
                                 MoodEntryItem item = new MoodEntryItem();
-                                item.setId(c.getInt(c.getColumnIndex(MoodEntryItem.TODOITEM_ID)));
-                                item.setTitle(c.getString(c.getColumnIndex(MoodEntryItem.TODOITEM_TITLE)));
-                                item.setContent(c.getString(c.getColumnIndex(MoodEntryItem.TODOITEM_CONTENT)));
-                                item.setDueDate(c.getLong(c.getColumnIndex(MoodEntryItem.TODOITEM_DUEDATE)));
-                                item.setCompleted(c.getInt(c.getColumnIndex(MoodEntryItem.TODOITEM_COMPLETED)) > 0);
+                                item.setId(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_ID)));
+                                item.setColor(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_COLOR)));
+                                item.setContent(c.getString(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_CONTENT)));
                                 moodEntryItems.add(item);
                             }
                             c.close();
@@ -103,12 +99,44 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
     /**
      * Not implemented yet
      *
-     * @param toDoItemId
+     * @param itemId
      * @param callback
      */
     @Override
-    public void getToDoItem(@NonNull String toDoItemId, @NonNull GetToDoItemCallback callback) {
+    public void getToDoItem(@NonNull final int itemId, @NonNull final GetToDoItemCallback callback) {
         Log.d("REPOSITORY", "GetToDoItem");
+        Runnable runnable = new Runnable(){
+            @Override
+            public void run() {
+                String[] projection = {
+                        MoodEntryItem.MOODENTRYITEM_ID,
+                        MoodEntryItem.MOODENTRYITEM_COLOR,
+                        MoodEntryItem.MOODENTRYITEM_CONTENT};
+                final Cursor c = mContext.getContentResolver().query(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME),
+                        projection, null, null, null);
+                final MoodEntryItem item = new MoodEntryItem();
+                mAppExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(c == null){
+                            callback.onDataNotAvailable();
+                        } else{
+                            while(c.moveToNext()) {
+                                if(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_ID))== itemId) {
+                                    item.setId(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_ID)));
+                                    item.setColor(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_COLOR)));
+                                    item.setContent(c.getString(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_CONTENT)));
+                                }
+                            }
+                            c.close();
+                            callback.onToDoItemLoaded(item);
+                        }
+                    }
+                });
+
+            }
+        };
+        mAppExecutors.diskIO().execute(runnable);
     }
 
     /**
@@ -123,12 +151,10 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
             @Override
             public void run() {
                 ContentValues myCV = new ContentValues();
-                myCV.put(MoodEntryItem.TODOITEM_ID, moodEntryItem.getId());
-                myCV.put(MoodEntryItem.TODOITEM_TITLE, moodEntryItem.getTitle());
-                myCV.put(MoodEntryItem.TODOITEM_CONTENT, moodEntryItem.getContent());
-                myCV.put(MoodEntryItem.TODOITEM_DUEDATE, moodEntryItem.getDueDate());
-                myCV.put(MoodEntryItem.TODOITEM_COMPLETED, moodEntryItem.getCompleted());
-                final int numUpdated = mContext.getContentResolver().update(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.TODOITEM_TABLE_NAME), myCV, null, null);
+                myCV.put(MoodEntryItem.MOODENTRYITEM_ID, moodEntryItem.getId());
+                myCV.put(MoodEntryItem.MOODENTRYITEM_COLOR, moodEntryItem.getColor());
+                myCV.put(MoodEntryItem.MOODENTRYITEM_CONTENT, moodEntryItem.getContent());
+                final int numUpdated = mContext.getContentResolver().update(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME), myCV, null, null);
                 Log.d("REPOSITORY", "Update ToDo updated " + String.valueOf(numUpdated) + " rows");
             }
         };
@@ -148,11 +174,9 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
             @Override
             public void run() {
                 ContentValues myCV = new ContentValues();
-                myCV.put(MoodEntryItem.TODOITEM_TITLE, moodEntryItem.getTitle());
-                myCV.put(MoodEntryItem.TODOITEM_CONTENT, moodEntryItem.getContent());
-                myCV.put(MoodEntryItem.TODOITEM_DUEDATE, moodEntryItem.getDueDate());
-                myCV.put(MoodEntryItem.TODOITEM_COMPLETED, moodEntryItem.getCompleted());
-                final Uri uri = mContext.getContentResolver().insert(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.TODOITEM_TABLE_NAME), myCV);
+                myCV.put(MoodEntryItem.MOODENTRYITEM_COLOR, moodEntryItem.getColor());
+                myCV.put(MoodEntryItem.MOODENTRYITEM_CONTENT, moodEntryItem.getContent());
+                final Uri uri = mContext.getContentResolver().insert(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME), myCV);
                 Log.d("REPOSITORY", "Create ToDo finished with URI" + uri.toString());
             }
         };
