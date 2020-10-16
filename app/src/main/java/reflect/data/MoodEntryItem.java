@@ -19,6 +19,7 @@ public class MoodEntryItem implements Serializable {
     //Static strings for the column names usable by other classes
     public static final String MOODENTRYITEM_ID = "id";
     public static final String MOODENTRYITEM_COLOR = "color";
+    public static final String MOODENTRYITEM_MOOD = "mood";
     public static final String MOODENTRYITEM_CONTENT = "content";
 
 
@@ -27,6 +28,9 @@ public class MoodEntryItem implements Serializable {
 
     @ColumnInfo(name = "color")
     private int color;
+
+    @ColumnInfo(name = "mood")
+    private String mood;
 
     @ColumnInfo(name = "content")
     private String content;
@@ -48,6 +52,14 @@ public class MoodEntryItem implements Serializable {
         return color;
     }
 
+    public String getMood() {
+        return mood;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
+
     public String getContent() {
         return content;
     }
@@ -64,6 +76,9 @@ public class MoodEntryItem implements Serializable {
         }
         if (contentValues.containsKey(MOODENTRYITEM_COLOR)) {
             item.setColor(contentValues.getAsInteger(MOODENTRYITEM_COLOR));
+        }
+        if (contentValues.containsKey(MOODENTRYITEM_MOOD)) {
+            item.setMood(contentValues.getAsString(MOODENTRYITEM_MOOD));
         }
         if (contentValues.containsKey(MOODENTRYITEM_CONTENT)) {
             item.setContent(contentValues.getAsString(MOODENTRYITEM_CONTENT));

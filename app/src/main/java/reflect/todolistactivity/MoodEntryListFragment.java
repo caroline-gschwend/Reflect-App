@@ -233,10 +233,10 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
             //used in the OnItemClick callback
             final MoodEntryItem moodEntryItem = getItem(i);
 
-            TextView titleTV = (TextView) rowView.findViewById(R.id.tvItemColor);
+            TextView titleTV = rowView.findViewById(R.id.tvItemColor);
             titleTV.setBackgroundResource(moodEntryItem.getColor());
-
-            TextView contentTV = (TextView) rowView.findViewById(R.id.etMoodDescription);
+            titleTV.setText(moodEntryItem.getMood());
+            TextView contentTV = rowView.findViewById(R.id.etMoodDescription);
             contentTV.setText(moodEntryItem.getContent());
 
             rowView.setOnClickListener(new View.OnClickListener() {

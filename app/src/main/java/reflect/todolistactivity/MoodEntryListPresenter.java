@@ -51,6 +51,7 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
         MoodEntryItem item = new MoodEntryItem();
         item.setColor(0);
         item.setContent("Content");
+        item.setMood("Mood");
         //Show AddEditToDoItemActivity with a create request and temporary item
         mToDoItemView.showAddEditToDoItem(item, CREATE_TODO_REQUEST);
     }
@@ -98,8 +99,10 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
         mMoodEntryItemRepository.getToDoItem(item.getId(), new MoodEntryListDataSource.GetToDoItemCallback() {
             @Override
             public void onToDoItemLoaded(MoodEntryItem task) {
+                task.setId(item.getId());
                 task.setColor(item.getColor());
                 task.setContent(item.getContent());
+                task.setMood(item.getMood());
                 mMoodEntryItemRepository.saveToDoItem(task);
                 // update notification
                 loadMoodEntryItems();

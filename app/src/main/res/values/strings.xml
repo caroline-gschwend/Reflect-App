@@ -5,6 +5,9 @@
     <string name="it_s_time_to_reflect">It\'s time to reflect.</string>
     <string name="welcome">Welcome</string>
     <string name="settings_wheel">settings wheel</string>
+    <string name="enter_mood">Enter Mood</string>
+    <string name="what_caused_you_to_feel_this_way">What caused you to feel this way?</string>
+    <string name="mood_color">Mood Color</string>
     <string-array name="spinnerChoices">
         <item>Enraged</item>
         <item>Panicked</item>
