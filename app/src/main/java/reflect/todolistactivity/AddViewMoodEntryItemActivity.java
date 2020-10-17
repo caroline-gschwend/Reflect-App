@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.reflect.manifests.R;
 
-public class AddViewMoodEntryItemActivity extends AppCompatActivity {
+public class    AddViewMoodEntryItemActivity extends AppCompatActivity {
 
     int id = -1;
     private static final int UPDATE_TODO_REQUEST = 1;
