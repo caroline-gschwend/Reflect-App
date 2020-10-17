@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.reflect.manifests">
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:allowBackup="true"
@@ -10,15 +11,18 @@
         android:roundIcon="@mipmap/reflect_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="reflect.todolistactivity.AddViewMoodEntryItemActivity"></activity>
-         <provider
-         android:name="reflect.data.MoodEntryProvider"
-         android:authorities="com.example.reflect.data"
-         android:enabled="true"
-         android:exported="true" />
+        <activity android:name="reflect.todolistactivity.AddViewMoodEntryItemActivity" />
+
+        <provider
+            android:name="reflect.data.MoodEntryProvider"
+            android:authorities="com.example.reflect.data"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity android:name="reflect.todolistactivity.MoodEntryListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
