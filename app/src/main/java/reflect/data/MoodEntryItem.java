@@ -22,7 +22,6 @@ public class MoodEntryItem implements Serializable {
     public static final String MOODENTRYITEM_MOOD = "mood";
     public static final String MOODENTRYITEM_CONTENT = "content";
 
-
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 
@@ -85,6 +84,4 @@ public class MoodEntryItem implements Serializable {
         }
         return item;
     }
-
-
 }

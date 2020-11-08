@@ -19,7 +19,13 @@ import android.widget.TextView;
 
 import com.example.reflect.manifests.R;
 
-public class    AddViewMoodEntryItemActivity extends AppCompatActivity {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+
+public class AddViewMoodEntryItemActivity extends AppCompatActivity {
 
     int id = -1;
     private static final int UPDATE_TODO_REQUEST = 1;
@@ -90,7 +96,7 @@ public class    AddViewMoodEntryItemActivity extends AppCompatActivity {
                 item.setContent(moodDescription.getText().toString());
                 item.setColor(color);
                 item.setMood(moodText);
-                if(id != -1) item.setId(id);
+                 if(id != -1) item.setId(id);
                 intent.putExtra("MoodEntryItem", item);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
