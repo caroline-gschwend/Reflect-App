@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.reflect.manifests.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -83,10 +86,9 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_mood_entry_list, container, false);
-
         // Set up tasks view
-        ListView listView = (ListView) root.findViewById(R.id.rvToDoList);
-        listView.setAdapter(mMoodEntryItemsAdapter);
+        GridView gridView = (GridView) root.findViewById(R.id.rvToDoList);
+        gridView.setAdapter(mMoodEntryItemsAdapter);
         //Find button and set onClickMethod to add a New ToDoItem
         root.findViewById(R.id.btnNewMoodEntry).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,11 +235,16 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
             //used in the OnItemClick callback
             final MoodEntryItem moodEntryItem = getItem(i);
 
+            DateFormat dateFormat = new SimpleDateFormat("M : dd ");
+            Calendar c = Calendar.getInstance();
+            String date = dateFormat.format(c.getTime());
+
             TextView titleTV = rowView.findViewById(R.id.tvItemColor);
             titleTV.setBackgroundResource(moodEntryItem.getColor());
-            titleTV.setText(moodEntryItem.getMood());
-            TextView contentTV = rowView.findViewById(R.id.etMoodDescription);
-            contentTV.setText(moodEntryItem.getContent());
+
+            titleTV.setText(date + moodEntryItem.getMood());
+            //TextView contentTV = rowView.findViewById(R.id.etMoodDescription);
+            //contentTV.setText(moodEntryItem.getContent());
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
