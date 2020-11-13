@@ -47,6 +47,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
         executor = ContextCompat.getMainExecutor(this);
         //will show prompt only if there is a fingerprint created for device
         //will use toast messages to communicate with the user if there is an issue or success
+        //will not allow user to login if authentication fails
         biometricPrompt = new BiometricPrompt(MoodEntryListActivity.this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
