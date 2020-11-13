@@ -13,6 +13,19 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical">
 
+        <CheckBox
+            android:id="@+id/cbComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="150dp"
+            android:layout_marginStart="10dp"
+            android:clickable="false"
+            android:text="@string/day_complete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnNewDay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvToDoList" />
+
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="49dp"
@@ -27,56 +40,91 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvReflectText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="172dp"
-            android:layout_marginStart="181dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/it_s_time_to_reflect"
-            android:textColor="#000000"
-            app:layout_constraintBottom_toTopOf="@+id/rvToDoList"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.592"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:layout_marginEnd="198dp"
-            android:layout_marginStart="155dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginEnd="200dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="20dp"
             android:text="@string/welcome"
             android:textColor="#000000"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/tvReflectText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.179"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvReflectText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="200dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/it_s_time_to_reflect"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/rvToDoList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/tvMorning"
+            android:layout_width="54dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="Morning"
+            app:layout_constraintBottom_toTopOf="@+id/rvToDoList"
+            app:layout_constraintEnd_toStartOf="@+id/tvAfternoon"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAfternoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Afternoon"
+            app:layout_constraintBottom_toTopOf="@+id/rvToDoList"
+            app:layout_constraintEnd_toStartOf="@+id/tvEvening"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvMorning"
+            app:layout_constraintTop_toTopOf="@+id/tvMorning" />
+
+        <TextView
+            android:id="@+id/tvEvening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Evening"
+            app:layout_constraintBottom_toTopOf="@+id/rvToDoList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvAfternoon"
+            app:layout_constraintTop_toTopOf="@+id/tvAfternoon" />
+
         <android.widget.GridView
             android:id="@+id/rvToDoList"
-            android:layout_width="358dp"
-            android:layout_height="421dp"
+            android:layout_width="361dp"
+            android:layout_height="393dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:columnWidth="70dp"
             android:fastScrollEnabled="true"
-            android:numColumns="auto_fit"
-            app:layout_constraintBottom_toTopOf="@+id/btnNewMoodEntry"
+            android:numColumns="3"
+            app:layout_constraintBottom_toTopOf="@+id/btnNewDay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvReflectText" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnNewMoodEntry"
+            android:id="@+id/btnNewDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"

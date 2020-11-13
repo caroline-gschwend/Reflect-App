@@ -14,7 +14,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="17dp"
-        android:background="@color/lightYellow"
+        android:background="@color/colorPrimary"
         android:text="@string/enter_mood"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

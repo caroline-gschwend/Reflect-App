@@ -12,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.reflect.manifests.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -89,13 +92,23 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
         // Set up tasks view
         GridView gridView = (GridView) root.findViewById(R.id.rvToDoList);
         gridView.setAdapter(mMoodEntryItemsAdapter);
+        final FloatingActionButton newDay = root.findViewById(R.id.btnNewDay);
         //Find button and set onClickMethod to add a New ToDoItem
-        root.findViewById(R.id.btnNewMoodEntry).setOnClickListener(new View.OnClickListener() {
+        newDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //start new day - add 3 blank days, then disable button.
                 mPresenter.addNewMoodEntryItem();
+                mPresenter.addNewMoodEntryItem();
+                mPresenter.addNewMoodEntryItem();
+                Toast.makeText(getContext(),
+                        "Start Day", Toast.LENGTH_SHORT)
+                        .show();
+                mPresenter.loadMoodEntryItems();
+                newDay.setEnabled(false);
             }
         });
+
         return root;
     }
 

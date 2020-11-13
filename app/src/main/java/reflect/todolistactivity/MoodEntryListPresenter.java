@@ -3,6 +3,8 @@ package reflect.todolistactivity;
 import android.app.Activity;
 import android.util.Log;
 
+import com.example.reflect.manifests.R;
+
 import androidx.annotation.NonNull;
 import reflect.data.MoodEntryItem;
 import reflect.data.MoodEntryItemRepository;
@@ -49,11 +51,12 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
     public void addNewMoodEntryItem() {
         //Create stub ToDoItem with temporary data
         MoodEntryItem item = new MoodEntryItem();
-        item.setColor(0);
+        item.setColor(R.color.black);
         item.setContent("Content");
-        item.setMood("Mood");
+        item.setMood("Incomplete");
+        createToDoItem(item);
         //Show AddEditToDoItemActivity with a create request and temporary item
-        mToDoItemView.showAddEditToDoItem(item, CREATE_TODO_REQUEST);
+       // mToDoItemView.showAddEditToDoItem(item, CREATE_TODO_REQUEST);
     }
 
     @Override
