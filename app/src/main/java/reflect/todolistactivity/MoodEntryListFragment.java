@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import reflect.data.MoodEntryItem;
+import reflect.settingsActivity.SettingsActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;

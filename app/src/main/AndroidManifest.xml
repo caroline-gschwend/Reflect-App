@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="reflect.settingsActivity.SettingsActivity"></activity>
-        <activity android:name="reflect.todolistactivity.SettingsActivity" />
         <activity android:name="reflect.todolistactivity.AddViewMoodEntryItemActivity" />
 
         <provider
@@ -28,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="reflect.settingsActivity.AlarmReceiver"/>
     </application>
 
 </manifest>
