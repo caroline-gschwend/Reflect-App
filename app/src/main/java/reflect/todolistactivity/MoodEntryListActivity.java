@@ -56,6 +56,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Authentication error: " + errString, Toast.LENGTH_SHORT)
                         .show();
+                biometricPrompt.authenticate(promptInfo);
             }
 
             @Override
@@ -79,7 +80,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Welcome to Reflect")
                 .setSubtitle("Log in using your fingerprint")
-                .setNegativeButtonText("login with passcode")
+                .setDeviceCredentialAllowed(true)
                 .build();
 
         //upon opening the app the user will be prompted to login with their finger print
