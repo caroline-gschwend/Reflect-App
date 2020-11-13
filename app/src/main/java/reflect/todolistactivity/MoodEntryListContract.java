@@ -26,6 +26,10 @@ public interface MoodEntryListContract {
         void showToDoItems(List<MoodEntryItem> moodEntryItemList);
 
         /**
+         * show settings activity
+         */
+        void showSettingsActivity();
+        /**
          * showAddEditToDoItem - Creates an intent object to launch add or edit to do item activity
          *
          * @param item        - Item to be added/modified
@@ -60,6 +64,10 @@ public interface MoodEntryListContract {
          */
         void showExistingMoodEntryItem(MoodEntryItem item);
 
+        /**
+         * show the settings activity
+         */
+        void showSettingsActivity();
         /**
          * updateToDoItem -- Item to be updated in the dataRepository
          *

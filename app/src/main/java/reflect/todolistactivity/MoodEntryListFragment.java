@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import reflect.data.MoodEntryItem;
 
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -61,6 +64,7 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMoodEntryItemsAdapter = new MoodEntryItemsAdapter(new ArrayList<MoodEntryItem>(0), mMoodEntryItemsListener);
+
     }
 
     /**
@@ -94,6 +98,14 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
             @Override
             public void onClick(View view) {
                 mPresenter.addNewMoodEntryItem();
+            }
+        });
+
+        root.findViewById(R.id.settingsBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
             }
         });
         return root;
@@ -135,6 +147,11 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
         startActivityForResult(intent,requestCode);
     }
 
+    @Override
+    public void showSettingsActivity() {
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(intent);
+    }
     /**
      * callback function for startActivityForResult
      * Data intent should contain a ToDoItem
@@ -162,6 +179,11 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
             Log.d("FRAGMENT", "Open ToDoItem Details");
             //Grab item from the ListView click and pass to presenter
             mPresenter.showExistingMoodEntryItem(clickedMoodEntryItem);
+        }
+
+        @Override
+        public void onSettingsBtnClicked() {
+            mPresenter.showSettingsActivity();
         }
     };
 
@@ -259,5 +281,6 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
 
     public interface MoodEntryItemsListener {
         void onMoodEntryItemClick(MoodEntryItem clickedMoodEntryItem);
+        void onSettingsBtnClicked();
     }
 }
