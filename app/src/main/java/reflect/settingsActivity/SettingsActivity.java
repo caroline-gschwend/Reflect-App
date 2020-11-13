@@ -20,7 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("here");
+                System.out.println("hit");
             }
         });
     }
