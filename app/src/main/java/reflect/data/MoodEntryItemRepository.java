@@ -70,7 +70,8 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                         MoodEntryItem.MOODENTRYITEM_ID,
                         MoodEntryItem.MOODENTRYITEM_COLOR,
                         MoodEntryItem.MOODENTRYITEM_MOOD,
-                        MoodEntryItem.MOODENTRYITEM_CONTENT};
+                        MoodEntryItem.MOODENTRYITEM_CONTENT,
+                        MoodEntryItem.MOODENTRYITEM_TIMESTAMP};
                 final Cursor c = mContext.getContentResolver().query(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME), projection, null, null, null);
                 final List<MoodEntryItem> moodEntryItems = new ArrayList<MoodEntryItem>(0);
                 mAppExecutors.mainThread().execute(new Runnable() {
@@ -85,6 +86,7 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                                 item.setColor(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_COLOR)));
                                 item.setMood(c.getString(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_MOOD)));
                                 item.setContent(c.getString(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_CONTENT)));
+                                item.setTimestamp(c.getLong(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_TIMESTAMP)));
                                 moodEntryItems.add(item);
                             }
                             c.close();
@@ -114,7 +116,8 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                         MoodEntryItem.MOODENTRYITEM_ID,
                         MoodEntryItem.MOODENTRYITEM_COLOR,
                         MoodEntryItem.MOODENTRYITEM_MOOD,
-                        MoodEntryItem.MOODENTRYITEM_CONTENT};
+                        MoodEntryItem.MOODENTRYITEM_CONTENT,
+                        MoodEntryItem.MOODENTRYITEM_TIMESTAMP};
                 final Cursor c = mContext.getContentResolver().query(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME),
                         projection, null, null, null);
                 final MoodEntryItem item = new MoodEntryItem();
@@ -130,6 +133,7 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                                     item.setColor(c.getInt(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_COLOR)));
                                     item.setMood(c.getString(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_MOOD)));
                                     item.setContent(c.getString(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_CONTENT)));
+                                    item.setTimestamp(c.getLong(c.getColumnIndex(MoodEntryItem.MOODENTRYITEM_TIMESTAMP)));
                                 }
                             }
                             c.close();
@@ -159,6 +163,7 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                 myCV.put(MoodEntryItem.MOODENTRYITEM_COLOR, moodEntryItem.getColor());
                 myCV.put(MoodEntryItem.MOODENTRYITEM_MOOD, moodEntryItem.getMood());
                 myCV.put(MoodEntryItem.MOODENTRYITEM_CONTENT, moodEntryItem.getContent());
+                myCV.put(MoodEntryItem.MOODENTRYITEM_TIMESTAMP, moodEntryItem.getTimestamp());
                 final int numUpdated = mContext.getContentResolver().update(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME), myCV, null, null);
                 Log.d("REPOSITORY", "Update ToDo updated " + String.valueOf(numUpdated) + " rows");
             }
@@ -182,6 +187,7 @@ public class MoodEntryItemRepository implements MoodEntryListDataSource {
                 myCV.put(MoodEntryItem.MOODENTRYITEM_COLOR, moodEntryItem.getColor());
                 myCV.put(MoodEntryItem.MOODENTRYITEM_MOOD, moodEntryItem.getMood());
                 myCV.put(MoodEntryItem.MOODENTRYITEM_CONTENT, moodEntryItem.getContent());
+                myCV.put(MoodEntryItem.MOODENTRYITEM_TIMESTAMP, moodEntryItem.getTimestamp());
                 final Uri uri = mContext.getContentResolver().insert(Uri.parse("content://" + MoodEntryProvider.AUTHORITY + "/" + MoodEntryProvider.MOODENTRYITEM_TABLE_NAME), myCV);
                 Log.d("REPOSITORY", "Create ToDo finished with URI" + uri.toString());
             }

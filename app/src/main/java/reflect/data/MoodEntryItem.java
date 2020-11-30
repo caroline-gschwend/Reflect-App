@@ -21,6 +21,7 @@ public class MoodEntryItem implements Serializable {
     public static final String MOODENTRYITEM_COLOR = "color";
     public static final String MOODENTRYITEM_MOOD = "mood";
     public static final String MOODENTRYITEM_CONTENT = "content";
+    public static final String MOODENTRYITEM_TIMESTAMP = "timestamp";
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
@@ -33,6 +34,9 @@ public class MoodEntryItem implements Serializable {
 
     @ColumnInfo(name = "content")
     private String content;
+
+    @ColumnInfo(name = "timestamp")
+    private long timestamp;
 
     //Following are getters and setters for all five member variables
     public Integer getId() {
@@ -67,6 +71,10 @@ public class MoodEntryItem implements Serializable {
         this.content = content;
     }
 
+    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+
+    public long getTimestamp() { return timestamp; }
+
     //Create a ToDoItem from a ContentValues object
     public static MoodEntryItem fromContentValues(ContentValues contentValues) {
         MoodEntryItem item = new MoodEntryItem();
@@ -81,6 +89,9 @@ public class MoodEntryItem implements Serializable {
         }
         if (contentValues.containsKey(MOODENTRYITEM_CONTENT)) {
             item.setContent(contentValues.getAsString(MOODENTRYITEM_CONTENT));
+        }
+        if(contentValues.containsKey(MOODENTRYITEM_TIMESTAMP)) {
+            item.setTimestamp(contentValues.getAsLong(MOODENTRYITEM_TIMESTAMP));
         }
         return item;
     }

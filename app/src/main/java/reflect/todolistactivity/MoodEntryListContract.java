@@ -67,6 +67,8 @@ public interface MoodEntryListContract {
          */
         void updateMoodEntryItem(MoodEntryItem item);
 
+        void getMoodEntryItems();
+
         /**
          * result -- Passthrough from View
          * Takes the requestCode, resultCode, and the returned ToDoItem from a call to showAddEditToDoItem

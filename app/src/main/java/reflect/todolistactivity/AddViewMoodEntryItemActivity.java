@@ -96,6 +96,8 @@ public class AddViewMoodEntryItemActivity extends AppCompatActivity {
                 item.setContent(moodDescription.getText().toString());
                 item.setColor(color);
                 item.setMood(moodText);
+                long currentDay = Calendar.getInstance().getTimeInMillis();
+                item.setTimestamp(currentDay);
                  if(id != -1) item.setId(id);
                 intent.putExtra("MoodEntryItem", item);
                 setResult(Activity.RESULT_OK, intent);
