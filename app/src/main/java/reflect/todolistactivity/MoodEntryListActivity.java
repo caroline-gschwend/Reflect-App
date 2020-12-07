@@ -23,6 +23,9 @@ import com.example.reflect.manifests.R;
 
 import java.util.concurrent.Executor;
 
+import reflect.data.AlarmDataSource;
+import reflect.data.AlarmItem;
+import reflect.data.AlarmItemRepository;
 import reflect.data.MoodEntryItemRepository;
 import util.AppExecutors;
 
@@ -37,6 +40,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
+    private AlarmItemRepository alarmItemRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class MoodEntryListActivity extends AppCompatActivity {
         //Set view to use the main activity layout - a content frame that holds a single fragment
         setContentView(R.layout.activity_main);
 
+        //new instance of alarm repo
+        alarmItemRepository = new AlarmItemRepository(new AppExecutors(),getApplicationContext());
         executor = ContextCompat.getMainExecutor(this);
         //will show prompt only if there is a fingerprint created for device
         //will use toast messages to communicate with the user if there is an issue or success
@@ -107,6 +113,62 @@ public class MoodEntryListActivity extends AppCompatActivity {
         // ToDoListRepository needs a thread pool to execute database/network calls in other threads
         // ToDoListRepository needs the application context to be able to make calls to the ContentProvider
         mMoodEntryListPresenter = new MoodEntryListPresenter(MoodEntryItemRepository.getInstance(new AppExecutors(), getApplicationContext()), moodEntryListFragment);
+
+
+        //create alarm types when app first loads
+        alarmItemRepository.getAlarmItem(1, new AlarmDataSource.GetAlarmItemCallback() {
+            @Override
+            public void onAlarmItemLoaded(AlarmItem item) {
+               Log.d("Main Activity: ", "Alarm items already in the database");
+                if(item.getId() == null) {
+                    //create morningAlarmItem
+                    AlarmItem morningAlarm = new AlarmItem();
+                    morningAlarm.setType("morning");
+                    morningAlarm.setTime("");
+                    morningAlarm.setSet(false);
+                    alarmItemRepository.createAlarmItem(morningAlarm);
+
+                    //create afternoonAlarmItem
+                    AlarmItem afternoonAlarm = new AlarmItem();
+                    afternoonAlarm.setType("afternoon");
+                    afternoonAlarm.setTime("");
+                    afternoonAlarm.setSet(false);
+                    alarmItemRepository.createAlarmItem(afternoonAlarm);
+
+                    //create eveningAlarmItem
+                    AlarmItem eveningAlarm = new AlarmItem();
+                    eveningAlarm.setType("evening");
+                    eveningAlarm.setTime("");
+                    eveningAlarm.setSet(false);
+                    alarmItemRepository.createAlarmItem(eveningAlarm);
+                }
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                //create morningAlarmItem
+                AlarmItem morningAlarm = new AlarmItem();
+                morningAlarm.setType("morning");
+                morningAlarm.setTime("");
+                morningAlarm.setSet(false);
+                alarmItemRepository.createAlarmItem(morningAlarm);
+
+                //create afternoonAlarmItem
+                AlarmItem afternoonAlarm = new AlarmItem();
+                afternoonAlarm.setType("afternoon");
+                afternoonAlarm.setTime("");
+                afternoonAlarm.setSet(false);
+                alarmItemRepository.createAlarmItem(afternoonAlarm);
+
+                //create eveningAlarmItem
+                AlarmItem eveningAlarm = new AlarmItem();
+                eveningAlarm.setType("evening");
+                eveningAlarm.setTime("");
+                eveningAlarm.setSet(false);
+                alarmItemRepository.createAlarmItem(eveningAlarm);
+
+            }
+        });
 
     }
 }

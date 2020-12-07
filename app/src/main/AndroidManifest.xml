@@ -11,11 +11,18 @@
         android:roundIcon="@mipmap/reflect_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="reflect.settingsActivity.SettingsActivity"></activity>
         <activity android:name="reflect.todolistactivity.AddViewMoodEntryItemActivity" />
 
         <provider
             android:name="reflect.data.MoodEntryProvider"
             android:authorities="com.example.reflect.data"
+            android:enabled="true"
+            android:exported="true" />
+
+        <provider
+            android:name="reflect.data.AlarmItemProvider"
+            android:authorities="com.example.reflect.data.AlarmItemProvider"
             android:enabled="true"
             android:exported="true" />
 
@@ -26,6 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="reflect.settingsActivity.AlarmReceiver"/>
     </application>
 
 </manifest>

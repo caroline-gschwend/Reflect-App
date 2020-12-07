@@ -128,6 +128,13 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
     }
 
     /**
+     * launch settings activity
+     */
+    @Override
+    public void showSettingsActivity() {
+        mToDoItemView.showSettingsActivity();
+    }
+    /**
      * loadToDoItems -- loads all items from ToDoItemRepository
      * Two callbacks -- success/failure
      */
