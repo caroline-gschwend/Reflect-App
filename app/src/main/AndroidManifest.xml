@@ -20,6 +20,12 @@
             android:enabled="true"
             android:exported="true" />
 
+        <provider
+            android:name="reflect.data.AlarmItemProvider"
+            android:authorities="com.example.reflect.data.AlarmItemProvider"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity android:name="reflect.todolistactivity.MoodEntryListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -15,6 +15,10 @@ import com.example.reflect.manifests.R;
 
 import reflect.todolistactivity.MoodEntryListActivity;
 
+/**
+ * Will receive information from alarm manager
+ * meant to send the notification with specific information, at specific time
+ */
 public class AlarmReceiver extends BroadcastReceiver {
 
         String ALARM_CHANNEL_ID = "alarm_channel";
@@ -23,7 +27,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            System.out.println("hit");
             int requestId = 0;
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder alarm_builder = new NotificationCompat.Builder(context, ALARM_CHANNEL_ID)
