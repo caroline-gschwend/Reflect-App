@@ -11,4 +11,5 @@
     <color name="lightYellow">#cbcca8</color>
     <color name="darkPink">#9F6EC9</color>
     <color name="lightPink">#ffbbda</color>
+    <color name="black">#000000</color>
 </resources>

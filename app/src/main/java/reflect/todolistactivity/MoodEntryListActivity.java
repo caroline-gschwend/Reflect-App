@@ -53,6 +53,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
         executor = ContextCompat.getMainExecutor(this);
         //will show prompt only if there is a fingerprint created for device
         //will use toast messages to communicate with the user if there is an issue or success
+        //will not allow user to login if authentication fails
         biometricPrompt = new BiometricPrompt(MoodEntryListActivity.this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
@@ -62,6 +63,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Authentication error: " + errString, Toast.LENGTH_SHORT)
                         .show();
+                biometricPrompt.authenticate(promptInfo);
             }
 
             @Override
@@ -85,7 +87,7 @@ public class MoodEntryListActivity extends AppCompatActivity {
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Welcome to Reflect")
                 .setSubtitle("Log in using your fingerprint")
-                .setNegativeButtonText("login with passcode")
+                .setDeviceCredentialAllowed(true)
                 .build();
 
         //upon opening the app the user will be prompted to login with their finger print

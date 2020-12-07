@@ -3,11 +3,17 @@ package reflect.todolistactivity;
 import android.app.Activity;
 import android.util.Log;
 
+import com.example.reflect.manifests.R;
+
 import androidx.annotation.NonNull;
 import reflect.data.MoodEntryItem;
 import reflect.data.MoodEntryItemRepository;
 import reflect.data.MoodEntryListDataSource;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +30,8 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
     // Integer request codes for creating or updating through the result method
     private static final int CREATE_TODO_REQUEST = 0;
     private static final int UPDATE_TODO_REQUEST = 1;
+
+    public static List<MoodEntryItem> todaysItems = new ArrayList<>();
 
     /**
      * ToDoListPresenter constructor
@@ -49,11 +57,13 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
     public void addNewMoodEntryItem() {
         //Create stub ToDoItem with temporary data
         MoodEntryItem item = new MoodEntryItem();
-        item.setColor(0);
-        item.setContent("Content");
-        item.setMood("Mood");
+        item.setColor(R.color.black);
+        item.setContent("");
+        item.setMood("Incomplete");
+        item.setTimestamp(Calendar.getInstance().getTimeInMillis());
+        createToDoItem(item);
         //Show AddEditToDoItemActivity with a create request and temporary item
-        mToDoItemView.showAddEditToDoItem(item, CREATE_TODO_REQUEST);
+       // mToDoItemView.showAddEditToDoItem(item, CREATE_TODO_REQUEST);
     }
 
     @Override
@@ -103,6 +113,7 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
                 task.setColor(item.getColor());
                 task.setContent(item.getContent());
                 task.setMood(item.getMood());
+                task.setTimestamp(item.getTimestamp());
                 mMoodEntryItemRepository.saveToDoItem(task);
                 // update notification
                 loadMoodEntryItems();
@@ -140,6 +151,27 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 Log.d("PRESENTER", "Not Loaded");
+            }
+        });
+    }
+
+    @Override
+    public void getMoodEntryItems() {
+        mMoodEntryItemRepository.getToDoItems(new MoodEntryListDataSource.LoadToDoItemsCallback() {
+            @Override
+            public void onToDoItemsLoaded(List<MoodEntryItem> moodEntryItems) {
+                for(MoodEntryItem item : moodEntryItems) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String itemdateString = formatter.format(new Date(item.getTimestamp()));
+                    String nowdateString = formatter.format(Calendar.getInstance().getTimeInMillis());
+                    if(itemdateString.equals(nowdateString)) {
+                        todaysItems.add(item);
+                    }
+                }
+            }
+            @Override
+            public void onDataNotAvailable() {
+
             }
         });
     }

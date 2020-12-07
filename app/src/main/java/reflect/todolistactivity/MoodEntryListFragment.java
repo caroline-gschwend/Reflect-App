@@ -16,10 +16,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.reflect.manifests.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,6 +31,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static reflect.todolistactivity.MoodEntryListPresenter.todaysItems;
 
 /**
  * ToDoListFragment implements the ToDoListContract.View class.
@@ -39,6 +43,7 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
     private MoodEntryListContract.Presenter mPresenter;
     // Inner class instance for ListView adapter
     private MoodEntryItemsAdapter mMoodEntryItemsAdapter;
+    FloatingActionButton newDay;
 
     public MoodEntryListFragment() {
         // Required empty public constructor
@@ -76,6 +81,20 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        setButton();
+    }
+
+    void setButton() {
+        mPresenter.getMoodEntryItems();
+        boolean startDayEnable=false;
+        if(!todaysItems.isEmpty()) {
+            newDay.setEnabled(false);
+        }
+        else {
+            // no entries are today
+            // enable start day button, checkbox is unchecked.
+            newDay.setEnabled(true);
+        }
     }
 
     /**
@@ -94,11 +113,21 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
         // Set up tasks view
         GridView gridView = (GridView) root.findViewById(R.id.rvToDoList);
         gridView.setAdapter(mMoodEntryItemsAdapter);
+        newDay = root.findViewById(R.id.btnNewDay);
+        setButton();
         //Find button and set onClickMethod to add a New ToDoItem
-        root.findViewById(R.id.btnNewMoodEntry).setOnClickListener(new View.OnClickListener() {
+        newDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //start new day - add 3 blank days, then disable button.
                 mPresenter.addNewMoodEntryItem();
+                mPresenter.addNewMoodEntryItem();
+                mPresenter.addNewMoodEntryItem();
+                Toast.makeText(getContext(),
+                        "Start Day", Toast.LENGTH_SHORT)
+                        .show();
+                mPresenter.loadMoodEntryItems();
+                newDay.setEnabled(false);
             }
         });
 
@@ -130,7 +159,6 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
     @Override
     public void showToDoItems(List<MoodEntryItem> moodEntryItemList) {
         mMoodEntryItemsAdapter.replaceData(moodEntryItemList);
-
     }
 
     /**
@@ -259,8 +287,7 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
             final MoodEntryItem moodEntryItem = getItem(i);
 
             DateFormat dateFormat = new SimpleDateFormat("M : dd ");
-            Calendar c = Calendar.getInstance();
-            String date = dateFormat.format(c.getTime());
+            String date = dateFormat.format(moodEntryItem.getTimestamp());
 
             TextView titleTV = rowView.findViewById(R.id.tvItemColor);
             titleTV.setBackgroundResource(moodEntryItem.getColor());
@@ -276,6 +303,7 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
                     mItemListener.onMoodEntryItemClick(moodEntryItem);
                 }
             });
+
             return rowView;
         }
     }
