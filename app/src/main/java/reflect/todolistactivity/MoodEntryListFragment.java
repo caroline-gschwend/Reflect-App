@@ -86,13 +86,11 @@ public class MoodEntryListFragment extends Fragment implements MoodEntryListCont
 
     void setButton() {
         mPresenter.getMoodEntryItems();
-        boolean startDayEnable=false;
         if(!todaysItems.isEmpty()) {
             newDay.setEnabled(false);
         }
         else {
             // no entries are today
-            // enable start day button, checkbox is unchecked.
             newDay.setEnabled(true);
         }
     }

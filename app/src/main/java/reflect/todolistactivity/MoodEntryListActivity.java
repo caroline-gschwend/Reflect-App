@@ -107,13 +107,8 @@ public class MoodEntryListActivity extends AppCompatActivity {
             transaction.commit();
         }
 
-        //Get an instance of the ToDoListPresenter
-        //Parameters - ToDoListRepository - Instance of the toDoListRepository
-        //toDoListFragment - the View to be communicated to by the presenter
-        // ToDoListRepository needs a thread pool to execute database/network calls in other threads
-        // ToDoListRepository needs the application context to be able to make calls to the ContentProvider
-        mMoodEntryListPresenter = new MoodEntryListPresenter(MoodEntryItemRepository.getInstance(new AppExecutors(), getApplicationContext()), moodEntryListFragment);
-
+        //Get an instance of the MoodEntryListProvider
+         mMoodEntryListPresenter = new MoodEntryListPresenter(MoodEntryItemRepository.getInstance(new AppExecutors(), getApplicationContext()), moodEntryListFragment);
 
         //create alarm types when app first loads
         alarmItemRepository.getAlarmItem(1, new AlarmDataSource.GetAlarmItemCallback() {

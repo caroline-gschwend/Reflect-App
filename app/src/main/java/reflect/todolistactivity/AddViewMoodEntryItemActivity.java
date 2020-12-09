@@ -54,7 +54,6 @@ public class AddViewMoodEntryItemActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         if(intent.hasExtra("RequestCode")) {
             if(intent.getIntExtra("RequestCode", -1)==UPDATE_TODO_REQUEST) {
-                Log.i("we have extra", "extra");
                 MoodEntryItem item = (MoodEntryItem)intent.getSerializableExtra("MoodEntryItem");
                 id = item.getId();
                 tvColor.setBackgroundResource(item.getColor());

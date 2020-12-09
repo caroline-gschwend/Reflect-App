@@ -62,8 +62,6 @@ public class MoodEntryListPresenter implements MoodEntryListContract.Presenter {
         item.setMood("Incomplete");
         item.setTimestamp(Calendar.getInstance().getTimeInMillis());
         createToDoItem(item);
-        //Show AddEditToDoItemActivity with a create request and temporary item
-       // mToDoItemView.showAddEditToDoItem(item, CREATE_TODO_REQUEST);
     }
 
     @Override
